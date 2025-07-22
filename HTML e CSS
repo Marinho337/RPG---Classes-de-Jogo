@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo de Heróis</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1c1c1c;
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #2a2a2a;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #00ffcc;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input, select {
+      background-color: #3a3a3a;
+      color: #fff;
+    }
+
+    button {
+      background-color: #00ffcc;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #00ccaa;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Jogo de Heróis</h1>
+    <input type="text" id="nome" placeholder="Nome do herói">
+    <input type="number" id="idade" placeholder="Idade">
+    <select id="tipo">
+      <option value="mago">Mago</option>
+      <option value="guerreiro">Guerreiro</option>
+      <option value="monge">Monge</option>
+      <option value="ninja">Ninja</option>
+    </select>
+    <button onclick="criarHeroi()">Atacar</button>
+    <p class="resultado" id="mensagem"></p>
+  </div>
+
+  <script>
+    class Heroi {
+      constructor(nome, idade, tipo) {
+        this.nome = nome;
+        this.idade = idade;
+        this.tipo = tipo;
+      }
+
+      atacar() {
+        let ataque;
+        switch (this.tipo) {
+          case "mago": ataque = "usou magia"; break;
+          case "guerreiro": ataque = "usou espada"; break;
+          case "monge": ataque = "usou artes marciais"; break;
+          case "ninja": ataque = "usou shuriken"; break;
+          default: ataque = "usou um ataque desconhecido";
+        }
+        return `O ${this.tipo} atacou usando ${ataque}`;
+      }
+    }
+
+    function criarHeroi() {
+      const nome = document.getElementById("nome").value;
+      const idade = parseInt(document.getElementById("idade").value);
+      const tipo = document.getElementById("tipo").value;
+
+      if (!nome || !idade || !tipo) {
+        document.getElementById("mensagem").textContent = "Preencha todos os campos.";
+        return;
+      }
+
+      const heroi = new Heroi(nome, idade, tipo);
+      document.getElementById("mensagem").textContent = heroi.atacar();
+    }
+  </script>
+</body>
+</html>
+
